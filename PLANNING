@@ -85,6 +85,7 @@ Classes
   - opponentTeam : vector Robot //Maybe rename
 
 - Profiler
+- Logger
 
 ###Control
 - Action
