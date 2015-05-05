@@ -1,0 +1,41 @@
+Software 2015 Project Planning
+==============================
+
+               --------------------
+               | SSL-VISION | REF |      -------
+               --------------------   /--| SIM |
+                     |         |      |  -------
+                     |         |      |     |
+                     |         |      |     |
+                    \|/       \|/    \|/    |
+ -----------      ------------------------  |
+ |         |      |                      |  |
+ |         |<-----|         CORE         |  |      ^
+ |  INTEL  |      |                      |  |      |
+ |         |      ------------------------  |   ------
+ |         |----->|        CONTROL       |----->| TX |
+ -----------      ------------------------      ------
+
+Modules
+-------
+- Core
+  - Control (multithread)
+- Tx
+- Sim (independent process)
+- Intel (independent process)
+
+
+###CORE
+- Vision treatment
+- Receive referee state
+- Update Intel
+- Update Control
+- Logging
+- Profiling
+
+###CONTROL
+- PID / Omni equation
+- Path Planning
+  - Potential Field
+  - RRT / RRT*
+- Transmission
