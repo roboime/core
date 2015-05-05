@@ -39,3 +39,69 @@ Modules
   - Potential Field
   - RRT / RRT*
 - Transmission
+
+
+Classes
+-------
+
+###Core
+
+- Params
+  - Robot Params
+    - radius : float
+    - wheelAngles(?) : vector float
+  - Field Params
+    - (all field params)
+  - PID Params
+    - p : float
+    - i : float
+    - d : float
+
+- Robot
+  - position : Vector2
+  - orientation/angle : float
+  - velocity : Vector2
+  - angular_velocity : float
+  - isVisible : boolean
+  - canKick : boolean
+  - canChip : boolean
+  - canDribble : boolean
+  - team : Team enum(?)
+
+- Ball
+  - position : Vector2
+  - velocity : Vector2
+  - acceleration(?) : Vector2
+  - radius(?) : float
+
+- World
+  - refereeState : RefereeState enum
+  - scoreBlue : int
+  - scoreYellow : int
+  - ballPossession : Team enum(?)
+  - timeLeftToFault : float/int
+  - gameTime : float
+  - ourTeam : vector Robot //Maybe rename
+  - opponentTeam : vector Robot //Maybe rename
+
+- Profiler
+
+###Control
+- Action
+  - isMoving : boolean
+  - moveTarget : Vector2
+  - isRotating : boolean
+  - orientationTarget : float
+  - isKicking : boolean
+  - isChiping : boolean
+  - isForced : boolean
+  - kickStrength : uint8/float
+  - isDribbling : boolean
+  - dribbleStrength : uint8/float
+
+- Control
+  - actions : queue/stack(?) Action
+  - world : ref World (shared data)
+
+
+
