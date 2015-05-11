@@ -1,0 +1,20 @@
+TODO LIST
+=========
+
+- Profiler (20150511): Naum, Rebeca, Cawai
+- CMake    (20150513): Naum
+- Logger   (20150518): Naum
+
+- Base     (20150518): Cawai, Rebeca
+  - Robot
+  - Ball
+  - Team
+  - World
+
+- Interface Core <-> Intel
+
+- Control
+  - Action
+  - Control
+
+- GUI
