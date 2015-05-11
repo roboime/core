@@ -74,6 +74,10 @@ Classes
   - acceleration(?) : Vector2
   - radius(?) : float
 
+- Team
+  - name  : string
+  - score (?) : int
+
 - World
   - refereeState : RefereeState enum
   - scoreBlue : int
