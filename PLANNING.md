@@ -24,6 +24,7 @@
 - Tx
 - Sim (independent process)
 - Intel (independent process)
+- GUI
 
 ## Composition
 
@@ -62,6 +63,7 @@
 - Game State
   - refereeState : RefereeState enum
   - gameTime : float
+  - timeRemaining : float (time remaining of current game state)
 
   - World
     - Field Params
@@ -85,6 +87,7 @@
     - Teams
       - name? : string
       - score : int
+      - goalie : uint
 
 - Profiler
 - Logger
