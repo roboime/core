@@ -1,5 +1,4 @@
-Naming
-------
+# Naming
 
 0. Use _const_ as much as possible.
    Inputs should always be const. No parameter should be input and output.
@@ -60,7 +59,7 @@ Naming
   line.getLength(); // NOT: line.GetLineLength();
   ```
 
-8. Booleans start with _is_.
+8. Booleans start with _is_ (or _has_, depending on case).
 
   ```cpp
   bool isKicking;
@@ -79,18 +78,17 @@ Naming
   computeAverage(); // NOT: CompAvg();
   ```
 
-Files
------
+# Files
 
 11. Header files must contain an __include guard__.
 
     __Include guards__ should be ```<project_name>_<file path>_<file name>_H```.
 
   ```cpp
-  #ifndef ROBOIME_CORE_PROFILER_H
-  #define ROBOIME_CORE_PROFILER_H
+  #ifndef ROBOIME_KERNEL_PROFILER_H
+  #define ROBOIME_KERNEL_PROFILER_H
     ...
-  #endif // ROBOIME_CORE_PROFILE_H
+  #endif // ROBOIME_KERNEL_PROFILE_H
   ```
 
 12. Include statements should be sorted and grouped. Sorted by their hierarchical
@@ -107,9 +105,9 @@ Files
   #include "core/profiler.h"
   ```
 
-Statements
-----------
-13. (?) Type conversions must always be done explicitly.
+# Statements
+
+13. Type conversions is prefered to be done explicitly.
 
   ```cpp
   floatValue = static_cast<float>(intValue);
@@ -122,7 +120,7 @@ Statements
   int& y; // NOT: int &y;
   ```
 
-15. Implicit test for _\0_ should not be used other than for booleans and
+15. Implicit test for _ 0 _ should not be used other than for booleans and
     pointers.
 
   ```cpp
@@ -138,8 +136,7 @@ Statements
    float f = 1.0f; // NOT: float f = 1.f;
    ```
 
-Layouts and Comments
---------------------
+# Layouts and Comments
 ###Layout
 
 17. Basic indentation should be 2 spaces (expanded tabs).
@@ -159,7 +156,7 @@ Layouts and Comments
   }
   ```
 
-###Whitespace
+### Whitespace
 
 20. Conventional operators should be surrounded by a space character.
     C++ reserved words should be followed by a white space.
@@ -187,15 +184,14 @@ Layouts and Comments
 
 22. Use alignment wherever possible!
 
-###Comments
+### Comments
 
 23. Avoid using comments. The code should be self explanatory.
     Only use comments if the code can't be rewritten.
 
 24. All comments should be written in English.
 
-Classes
--------
+# Classes
 
 25. C++ header files have _.h_ extension and source files have _.cpp_ extension.
 26. Each class should be declared in a header file and defined in a source file.
