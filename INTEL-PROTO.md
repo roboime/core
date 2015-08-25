@@ -74,6 +74,7 @@ Input:
 - \*\_W in radians (float)
 - \*\_VW in radians/s (float)
 - REF_STATE: single char any of these:
+  - 'H': HALT
   - 'S': STOP
   - 'N': NORMAL
   - 'p': PRE_KICKOFF

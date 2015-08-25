@@ -10,7 +10,7 @@ const int MAX_NUM_ROBOTS = 12;
 
 struct GameState {
   float gameTime;
-  float timeRemaining;
+  //float timeRemaining;
 
   World world;
   Ball ball;

@@ -8,7 +8,7 @@ namespace ime {
 struct Robot {
   bool visible;
 
-  Team team;
+  //Team team;
 
   Vector2 position;
   Vector2 velocity;
