@@ -57,6 +57,7 @@ The formats follow:
 Input:
 
     TIMESTAMP
+    OUR_SCORE OPPONENT_SCORE
     REF_STATE <REF_TIME_LEFT|-1>
     BALL_X BALL_Y BALL_VX BALL_VY
     GOALKEEPER_ID
@@ -66,6 +67,7 @@ Input:
     [ROBOT_ID ROBOT_X ROBOT_Y ROBOT_W ROBOT_VX ROBOT_VY ROBOT_VW] x OPPONENT_NUM_ROBOTS
 
 - TIMESTAMP: seconds (float)
+- \*\_SCORE are the scores of each team
 - NUM_ROBOTS: number of robots (int)
 - \*\_X and \*\_Y are positions in meters (float)
 - \*\_VX and \*\_VY are velocities in meters/s (float)
@@ -100,6 +102,6 @@ may include the score, it's been left out for now.
 
 Output:
 
-    [ROBOT_ID <SKILL>] * NUM_ROBOTS
+    [ROBOT_ID <SKILL>] for each updated robot skill
 
 _&lt;SKILL&gt;_ may be one of the skills listed in PLANNING.md

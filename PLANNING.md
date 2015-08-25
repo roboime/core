@@ -10,7 +10,7 @@
                     \|/       \|/    \|/    |
  -----------      ------------------------  |
  |         |      |                      |  |
- |         |<-----|        KERNEL        |  |      ^
+ |         |<-----|         CORE         |  |      ^
  |  INTEL  |      |                      |  |      |
  |         |      ------------------------  |   ------
  |         |----->|        CONTROL       |----->| TX |
@@ -19,7 +19,7 @@
 
 ## Modules
 
-- Kernel
+- Core
   - Control (multithread)
 - Tx
 - Sim (independent process)
@@ -28,7 +28,7 @@
 
 ## Composition
 
-### Kernel
+### Core
 
 - Vision treatment
 - Game State
@@ -46,7 +46,7 @@
 
 ## Implementation
 
-### Kernel
+### Core
 
 - Skills
   - type : SkillType enum
@@ -111,8 +111,7 @@
 
 - **kick &lt;pos&gt;**
 
-  Robot goes to the ball, orients to _pos_ and kicks as soon as the angles is
-  good enough.
+  Robot orients to _pos_ and kicks as soon as the angles is good enough.
 
 - **wait**
 
