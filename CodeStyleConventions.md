@@ -80,7 +80,7 @@
 
 # Files
 
-11. Header files must contain an __include guard__.
+11. Header files must contain an __include guard__. (Optional: use ```#pragma once```)
 
     __Include guards__ should be ```<project_name>_<file path>_<file name>_H```.
 
