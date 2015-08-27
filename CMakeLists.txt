@@ -17,7 +17,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_DEBUG_POSTFIX -d)
 
-add_executable(core core.cpp)
+option(BUILD_CLIENTS "ON to build clients. OFF to ignore them." ON)
+if (BUILD_CLIENTS)
+  add_subdirectory(clients)
+endif()
 
 option(BUILD_TESTS "ON to build tests. OFF to ignore them." ON)
 if (BUILD_TESTS)
