@@ -33,9 +33,13 @@ bool Udp::send(const char* text){
   return true;
 }
 
-bool Udp::listen (char* input_text){
+bool Udp::listen (char* input_text, bool broadcast = false){
   printf ("Waiting...");
   fflush(stdout);
+
+  if (broadcast){
+    setsockopt(socketState, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof (broadcast));
+  }
 
   ssize_t recoveryLength = recvfrom(socketState, input_text, BUFFER_LENGTH, 0, (struct sockaddr*) &socketOther, &socketLength);
   perror("recvfrom()");
