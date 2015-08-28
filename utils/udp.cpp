@@ -1,50 +1,51 @@
 #include "udp.h"
 
-Udp::Udp(){
-  socketState = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-  socketLength = sizeof(socketOther);
-  perror("socket");
+Udp::Udp () {
+  socketDescriptor_ = socket (AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  perror ("socket");
+  socketLength = sizeof (socketAddress_);
 }
 
-bool Udp::binding(uint16_t port){
-  memset((char*) &socketMe, 0, sizeof(socketMe));
-
-  socketMe.sin_family = AF_INET;
-  socketMe.sin_port = htons(port);
-  socketMe.sin_addr.s_addr = htonl(INADDR_ANY);
-
-  bindingState = bind(socketState, (struct sockaddr*) &socketMe, sizeof(socketMe));
-  perror("bind");
-  if (bindingState == -1){
+bool Udp::addToMembershipForMulticast (const char* address) {
+  grsimGroup_.imr_multiaddr.s_addr = inet_addr (address); 
+  int sd = setsockopt (socketDescriptor_, IPPROTO_IP, IP_ADD_MEMBERSHIP, &grsimGroup_, sizeof (grsimGroup_));
+  perror ("setsockopt()");
+  if (sd == -1) {
     return false;
   }
   return true;
 }
 
-bool Udp::send(const char* text){
-  socketOther.sin_family = socketMe.sin_family;
-  socketOther.sin_port = socketMe.sin_port;
-  socketOther.sin_addr.s_addr = socketMe.sin_addr.s_addr;
-  ssize_t sendingLength = sendto(socketState, text, strlen(text)+1, 0, (struct sockaddr*) &socketOther, socketLength);
-  perror("sendto()");
-  if (sendingLength == -1){
+bool Udp::bind (const uint16_t port) {
+  memset ((char*) &socketAddress_, 0, sizeof (socketAddress_));
+
+  socketAddress_.sin_family = AF_INET;
+  socketAddress_.sin_port = htons (port);
+  socketAddress_.sin_addr.s_addr = INADDR_ANY;
+
+  int bindingState = ::bind(socketDescriptor_, (struct sockaddr*) &socketAddress_, sizeof (socketAddress_));
+  perror ("bind");
+  if (bindingState == -1) {
     return false;
   }
   return true;
 }
 
-bool Udp::listen (char* input_text, bool broadcast = false){
-  printf ("Waiting...");
-  fflush(stdout);
-
-  if (broadcast){
-    setsockopt(socketState, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof (broadcast));
+bool Udp::send (const char* text) {
+  ssize_t sendingLength = sendto (socketDescriptor_, text, strlen (text), 0, (struct sockaddr*) &socketAddress_, socketLength);
+  perror ("sendto()");
+  if (sendingLength == -1) {
+    return false;
   }
+  return true;
+}
 
-  ssize_t recoveryLength = recvfrom(socketState, input_text, BUFFER_LENGTH, 0, (struct sockaddr*) &socketOther, &socketLength);
-  perror("recvfrom()");
+bool Udp::listenMulticast (char* input_text) {
 
-  if (recoveryLength == -1){
+  ssize_t recoveryLength = recvfrom (socketDescriptor_, input_text, BUFFER_LENGTH, 0, (struct sockaddr*) &socketAddress_, &socketLength);
+  perror ("recvfrom()");
+
+  if (recoveryLength == -1) {
     return false;
   }
   return true;
