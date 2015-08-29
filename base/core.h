@@ -2,6 +2,7 @@
 
 #include <mutex>
 
+#include <interface/subprocess.h>
 #include <base/gamestate.h>
 #include <base/skill.h>
 
@@ -17,7 +18,7 @@ private:
   Skill skills[MAX_NUM_ROBOTS];
   std::mutex skillsMutex_;
 
-  friend class Control;
+  //friend class Control;
 };
 
 }
