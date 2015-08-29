@@ -11,11 +11,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 # Set C++11 as standard compilation
 add_definitions("-std=c++11")
 
-include_directories(.)
+include_directories(src)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_DEBUG_POSTFIX -d)
+
+add_subdirectory(src)
 
 option(BUILD_CLIENTS "ON to build clients. OFF to ignore them." ON)
 if (BUILD_CLIENTS)
