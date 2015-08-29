@@ -2,8 +2,9 @@
 
 #include <mutex>
 
-#include <base/gamestate.h>
-#include <base/skill.h>
+#include <interface/subprocess.h>
+#include <gamestate.h>
+#include <skill.h>
 
 namespace ime {
 
@@ -17,7 +18,7 @@ private:
   Skill skills[MAX_NUM_ROBOTS];
   std::mutex skillsMutex_;
 
-  friend class Control;
+  //friend class Control;
 };
 
 }

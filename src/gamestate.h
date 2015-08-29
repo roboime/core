@@ -1,8 +1,8 @@
 #pragma once
 
-#include <base/world.h>
-#include <base/ball.h>
-#include <base/robot.h>
+#include <world.h>
+#include <ball.h>
+#include <robot.h>
 
 namespace ime {
 
