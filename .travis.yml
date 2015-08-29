@@ -17,8 +17,11 @@ install:
   - sudo apt-get install -qq cmake
   # Google Protobuf
   - sudo apt-get install -qq protobuf-compiler libprotobuf-dev
+  # Google Tests
+  - sudo apt-get install -qq libgtest0 libgtest-dev
 script:
-  - mkdir build && cd build
+  - mkdir build
+  - cd build
   - cmake .. -G "Unix Makefiles" -DCMAKE_RULE_MESSAGES=OFF
   - make -j8
   - ./bin/test-roboime-core
