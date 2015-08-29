@@ -22,7 +22,7 @@ public:
   Udp();
   bool binding(uint16_t port);
   bool send(const char* output_text);
-  bool listen (char* input_text);
+  bool listen (char* input_text, bool broadcast);
 };
 
 #endif
