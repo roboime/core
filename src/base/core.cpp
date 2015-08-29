@@ -22,12 +22,10 @@ addIntel(const char* name) {
 }
 
 void Core::
-run() {
+start() {
+  // TODO(naum): Start vision
   // TODO(naum): Start intel
   // TODO(naum): Start control
-
-  // TODO(naum): Receive vision update
-  // TODO(naum): Send gamestate to intel
 }
 
 }

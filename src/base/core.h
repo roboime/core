@@ -19,7 +19,7 @@ public:
   void changeTeam(const Team team);
 
   void addIntel(const char* name);
-  void run();
+  void start();
 
 private:
   /*
@@ -27,7 +27,6 @@ private:
    */
   Team ourTeam_;
   GameState gameState_;
-  RefereeState refState_;
 
   // TODO(naum): Create skills for each team, in case we want to test both
   Skill skills_[MAX_NUM_ROBOTS];
@@ -48,6 +47,7 @@ private:
   std::mutex skillsMutex_;
 
   //friend class Control;
+  friend class Intel;
 };
 
 }

@@ -57,14 +57,13 @@ The formats follow:
 Input:
 
     TIMESTAMP
-    OUR_SCORE OPPONENT_SCORE
+    OUR_SCORE THEIR_SCORE
     REF_STATE <REF_TIME_LEFT|-1>
     BALL_X BALL_Y BALL_VX BALL_VY
-    GOALKEEPER_ID
-    NUM_ROBOTS
-    OPPONENT_NUM_ROBOTS
-    [ROBOT_ID ROBOT_X ROBOT_Y ROBOT_W ROBOT_VX ROBOT_VY ROBOT_VW] x NUM_ROBOTS
-    [ROBOT_ID ROBOT_X ROBOT_Y ROBOT_W ROBOT_VX ROBOT_VY ROBOT_VW] x OPPONENT_NUM_ROBOTS
+    OUR_GOALKEEPER_ID THEIR_GOALKEEPER_ID
+    OUR_NUM_ROBOTS THEIR_NUM_ROBOTS
+    [ROBOT_ID ROBOT_X ROBOT_Y ROBOT_W ROBOT_VX ROBOT_VY ROBOT_VW] x OUR_NUM_ROBOTS
+    [ROBOT_ID ROBOT_X ROBOT_Y ROBOT_W ROBOT_VX ROBOT_VY ROBOT_VW] x THEIR_NUM_ROBOTS
 
 - TIMESTAMP: seconds (float)
 - \*\_SCORE are the scores of each team
@@ -77,18 +76,18 @@ Input:
   - 'H': HALT
   - 'S': STOP
   - 'N': NORMAL
-  - 'p': PRE_KICKOFF
-  - 'k': KICKOFF
-  - 'i': INDIRECT
-  - 'd': DIRECT
-  - 'x': PRE_PENALTY
-  - 'y': PENALTY
-  - 'P': OPPONENT_PRE_KICKOFF
-  - 'K': OPPONENT_KICKOFF
-  - 'I': OPPONENT_INDIRECT
-  - 'D': OPPONENT_DIRECT
-  - 'X': OPPONENT_PRE_PENALTY
-  - 'Y': OPPONENT_PENALTY
+  - 'p': OUR_PRE_KICKOFF
+  - 'k': OUR_KICKOFF
+  - 'i': OUR_INDIRECT
+  - 'd': OUR_DIRECT
+  - 'x': OUR_PRE_PENALTY
+  - 'y': OUR_PENALTY
+  - 'P': THEIR_PRE_KICKOFF
+  - 'K': THEIR_KICKOFF
+  - 'I': THEIR_INDIRECT
+  - 'D': THEIR_DIRECT
+  - 'X': THEIR_PRE_PENALTY
+  - 'Y': THEIR_PENALTY
 - REF_TIME_LEFT: for referee states 'kidyKIDY' this is the
   number of seconds (float) left until a fault occurs for not
   putting the ball in normal play, this will be capped to 0 if it happens to be
