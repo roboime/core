@@ -18,5 +18,7 @@ install:
   # Google Protobuf
   - sudo apt-get install -qq protobuf-compiler libprotobuf-dev
 script:
-  - mkdir build && cd build && cmake .. -G "Unix Makefiles" -DCMAKE_RULE_MESSAGES=OFF && make -j8
-  - cd build/bin && ./test-roboime-core
+  - mkdir build && cd build
+  - cmake .. -G "Unix Makefiles" -DCMAKE_RULE_MESSAGES=OFF
+  - make -j8
+  - ./bin/test-roboime-core
