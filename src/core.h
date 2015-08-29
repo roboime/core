@@ -3,8 +3,8 @@
 #include <mutex>
 
 #include <interface/subprocess.h>
-#include <base/gamestate.h>
-#include <base/skill.h>
+#include <gamestate.h>
+#include <skill.h>
 
 namespace ime {
 

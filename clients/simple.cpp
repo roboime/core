@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include <base/core.h>
+#include <core.h>
 
 int main() {
   ime::GameState gameState;
