@@ -81,3 +81,48 @@ macro(require_c99)
     message(STATUS "The compiler ${CMAKE_C_COMPILER} has no C99 support, which is required.")
   endif()
 endmacro()
+
+macro(require_gtest)
+  include(ExternalProject)
+
+  externalproject_add(googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG release-1.7.0
+    # Disable install step
+    INSTALL_COMMAND ""
+  )
+
+  externalproject_get_property(googletest source_dir)
+  externalproject_get_property(googletest binary_dir)
+
+  set(GTEST_INCLUDE_DIRS ${source_dir}/include)
+  set(GTEST_LIBRARY_PATH ${binary_dir})
+
+  # TODO: correct suffix for other platforms
+  #set(GTEST_LIBRARY ${GTEST_LIBRARY_PATH}/gtest.a)
+  set(GTEST_LIBRARY gtest)
+  add_library(${GTEST_LIBRARY} UNKNOWN IMPORTED)
+  set_property(
+    TARGET ${GTEST_LIBRARY}
+    PROPERTY IMPORTED_LOCATION
+    ${GTEST_LIBRARY_PATH}/${CMAKE_STATIC_LIBRARY_PREFIX}gtest${CMAKE_STATIC_LIBRARY_SUFFIX}
+  )
+  add_dependencies(${GTEST_LIBRARY} googletest)
+
+  #set(GTEST_MAIN_LIBRARY ${GTEST_LIBRARY_PATH}/gtest-main.a)
+  set(GTEST_MAIN_LIBRARY gtest-main)
+  add_library(${GTEST_MAIN_LIBRARY} UNKNOWN IMPORTED)
+  set_property(
+    TARGET ${GTEST_MAIN_LIBRARY}
+    PROPERTY IMPORTED_LOCATION
+    ${GTEST_LIBRARY_PATH}/${CMAKE_STATIC_LIBRARY_PREFIX}gtest_main${CMAKE_STATIC_LIBRARY_SUFFIX}
+  )
+  add_dependencies(${GTEST_MAIN_LIBRARY} googletest)
+
+  find_package(Threads)
+  set(GTEST_LIBRARIES ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+  set(GTEST_MAIN_LIBRARIES ${GTEST_MAIN_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+  set(GTEST_BOTH_LIBRARIES ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+endmacro()
+
+# vim: et sw=2 ts=2 sts=2

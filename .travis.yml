@@ -12,7 +12,6 @@ addons:
       - cmake
       - protobuf-compiler
       - libprotobuf-dev
-      - libgtest-dev
 script:
   - mkdir build
   - cd build
