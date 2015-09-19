@@ -1,11 +1,14 @@
+#include <cstdio>
+
 #include "intel.h"
 #include "core.h"
 
 namespace ime {
 
 Intel::
-Intel()
-{}
+Intel() {
+  hasStarted_ = false;
+}
 
 Intel::
 ~Intel()
@@ -14,12 +17,19 @@ Intel::
 void Intel::
 start(Core* core, const char* name) {
   core_ = core;
-  subProcess_.start(name);
+  hasStarted_ = subProcess_.start(name);
 }
 
 void Intel::
 run() {
+  if (!hasStarted_) {
+    // TODO(naum): Log running without started intel
+    ::printf("Trying to run intel while it hasn't started!\n");
+    return;
+  }
+
   while (1) {
+    // TODO(naum): Sync this!
     gameState_ = core_->getGameState();
     send();
     receive();

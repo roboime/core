@@ -25,8 +25,11 @@ addIntel(const char* name) {
 void Core::
 start() {
   // TODO(naum): Start vision
-  // TODO(naum): Start intel
   // TODO(naum): Start control
+
+  intelThread_ = std::thread {&Intel::run, intel_};
+
+  intelThread_.join();
 }
 
 GameState Core::

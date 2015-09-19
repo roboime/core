@@ -3,8 +3,11 @@
 #include "core.h"
 
 int main() {
+  printf("RoboIME Core 2016\n");
+
   ime::Core core;
 
-  printf("RoboIME Core 2016");
+  core.start();
+
   return 0;
 }

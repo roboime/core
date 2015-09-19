@@ -7,4 +7,4 @@ set(CORE_SRCS
   intel.cpp)
 
 add_library(core ${CORE_SRCS})
-target_link_libraries(core interface)
+target_link_libraries(core interface ${CMAKE_THREAD_LIBS_INIT})

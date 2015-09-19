@@ -1,6 +1,8 @@
 #ifndef INTEL_H
 #define INTEL_H
 
+//#include <condition_variable>
+
 #include "interface/subprocess.h"
 #include "gamestate.h"
 
@@ -21,6 +23,8 @@ private:
   SubProcess subProcess_;
   GameState gameState_;
   Core* core_;
+
+  bool hasStarted_;
 };
 
 }
