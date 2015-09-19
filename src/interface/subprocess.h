@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INTERFACE_SUBPROCESS_H
+#define INTERFACE_SUBPROCESS_H
 
 #include <sys/types.h>
 
@@ -23,3 +24,5 @@ private:
 };
 
 }
+
+#endif

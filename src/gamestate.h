@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
 
 #include <cinttypes>
 
@@ -25,3 +26,5 @@ struct GameState {
 };
 
 }
+
+#endif
