@@ -38,4 +38,19 @@ getGameState() const {
   return gameState_;
 }
 
+void Core::
+updateGameState(GameState gameState) {
+  {
+    std::lock_guard<std::mutex> lock {gameStateMutex_};
+    gameState_ = gameState;
+  }
+  gameStateUpdateCv_.notify_all();
+}
+
+void Core::
+waitGameStateUpdate() {
+  std::unique_lock<std::mutex> lock {gameStateUpdateMutex_};
+  gameStateUpdateCv_.wait(lock);
+}
+
 }

@@ -29,7 +29,7 @@ run() {
   }
 
   while (1) {
-    // TODO(naum): Sync this!
+    core_->waitGameStateUpdate();
     gameState_ = core_->getGameState();
     send();
     receive();

@@ -1,8 +1,6 @@
 #ifndef INTEL_H
 #define INTEL_H
 
-//#include <condition_variable>
-
 #include "interface/subprocess.h"
 #include "gamestate.h"
 

@@ -3,6 +3,7 @@
 
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 
 #include "control/control.h"
 #include "intel.h"
@@ -23,6 +24,8 @@ public:
   void start();
 
   GameState getGameState() const;
+  void updateGameState(GameState gameState);
+  void waitGameStateUpdate();
 
 private:
   /*
@@ -47,7 +50,11 @@ private:
   std::thread controlThread_;
   */
 
+  // CVs
+  std::condition_variable gameStateUpdateCv_;
+
   // Mutexes
+  std::mutex gameStateUpdateMutex_;
   mutable std::mutex gameStateMutex_;
   mutable std::mutex skillsMutex_;
 };
