@@ -1,10 +1,10 @@
-#include <base/intel.h>
+#include "intel.h"
+#include "core.h"
 
 namespace ime {
 
 Intel::
-Intel(Core& core)
-: core_{core}
+Intel()
 {}
 
 Intel::
@@ -12,14 +12,15 @@ Intel::
 {}
 
 void Intel::
-start(const char* name) {
+start(Core* core, const char* name) {
+  core_ = core;
   subProcess_.start(name);
 }
 
 void Intel::
 run() {
   while (1) {
-    gameState_ = core_.gameState_;
+    gameState_ = core_->getGameState();
     send();
     receive();
   }
@@ -76,6 +77,10 @@ send() {
 
     subProcess_.write(buffer);
   }
+}
+
+void Intel::
+receive() {
 }
 
 }

@@ -1,16 +1,18 @@
-#pragma once
+#ifndef INTEL_H
+#define INTEL_H
 
-#include <interface/subprocess.h>
-#include <base/gamestate.h>
-#include <base/core.h>
+#include "interface/subprocess.h"
+#include "gamestate.h"
 
-namespace ime{
+namespace ime {
+
+class Core;
 
 class Intel{
 public:
-  Intel(Core& core);
+  Intel();
   ~Intel();
-  void start(const char* name);
+  void start(Core* core, const char* name);
   void run();
 private:
   void send();
@@ -18,7 +20,9 @@ private:
 
   SubProcess subProcess_;
   GameState gameState_;
-  Core& core_;
+  Core* core_;
 };
 
 }
+
+#endif

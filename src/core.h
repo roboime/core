@@ -1,10 +1,11 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include <thread>
 #include <mutex>
 
-#include "interface/subprocess.h"
 #include "control/control.h"
+#include "intel.h"
 #include "team.h"
 #include "gamestate.h"
 #include "skill.h"
@@ -21,6 +22,8 @@ public:
   void addIntel(const char* name);
   void start();
 
+  GameState getGameState() const;
+
 private:
   /*
    * Game
@@ -28,26 +31,25 @@ private:
   Team ourTeam_;
   GameState gameState_;
 
-  // TODO(naum): Create skills for each team, in case we want to test both
   Skill skills_[MAX_NUM_ROBOTS];
 
   /*
    * Intel
    */
-  // TODO(naum): Create intel for each team
-  SubProcess intel_;
+  Intel intel_;
+  std::thread intelThread_;
 
   /*
    * Control
    */
+  /*
   Control control_;
+  std::thread controlThread_;
+  */
 
   // Mutexes
-  std::mutex gameStateMutex_;
-  std::mutex skillsMutex_;
-
-  //friend class Control;
-  friend class Intel;
+  mutable std::mutex gameStateMutex_;
+  mutable std::mutex skillsMutex_;
 };
 
 }

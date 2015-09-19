@@ -1,9 +1,9 @@
 #include <cstdio>
 
-#include <core.h>
+#include "core.h"
 
 int main() {
-  ime::GameState gameState;
+  ime::Core core;
 
   printf("RoboIME Core 2016");
   return 0;

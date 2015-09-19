@@ -7,12 +7,14 @@ class Core;
 
 class Control {
 public:
-  Control();
+  /*
+  Control(Core&);
   ~Control();
 private:
   void transmit();
 
-  Core* core;
+  Core& core;
+  */
 };
 
 }
