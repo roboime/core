@@ -16,6 +16,9 @@ include(${PROJECT_SOURCE_DIR}/cmake/Utils.cmake)
 # Set C++11 as standard compilation
 require_cxx11()
 
+# Threads
+find_package(Threads REQUIRED)
+
 # Protobuf
 find_package(Protobuf REQUIRED)
 include_directories(SYSTEM ${PROTOBUF_INCLUDE_DIRS})
