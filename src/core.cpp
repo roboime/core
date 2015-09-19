@@ -27,7 +27,7 @@ start() {
   // TODO(naum): Start vision
   // TODO(naum): Start control
 
-  intelThread_ = std::thread {&Intel::run, intel_};
+  intelThread_ = std::thread {&Intel::run, std::ref(intel_)};
 
   intelThread_.join();
 }
