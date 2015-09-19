@@ -12,6 +12,8 @@ addons:
       - cmake
       - protobuf-compiler
       - libprotobuf-dev
+before_install:
+  - sudo apt-get install -qq gcc-4.8
 script:
   - mkdir build
   - cd build
