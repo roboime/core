@@ -12,7 +12,7 @@ addons:
       - cmake
       - protobuf-compiler
       - libprotobuf-dev
-      - gcc-4.8
+      - libstdc++-4.8-dev
 script:
   - mkdir build
   - cd build
