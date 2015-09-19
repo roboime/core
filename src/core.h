@@ -2,12 +2,11 @@
 
 #include <mutex>
 
-#include <interface/subprocess.h>
-#include <control/control.h>
-#include <base/gamestate.h>
-#include <base/team.h>
-#include <base/refereestate.h>
-#include <base/skill.h>
+#include "interface/subprocess.h"
+#include "control/control.h"
+#include "team.h"
+#include "gamestate.h"
+#include "skill.h"
 
 namespace ime {
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <utils/vector2.h>
-#include <base/team.h>
+#include <team.h>
 
 namespace ime {
 
