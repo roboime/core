@@ -20,7 +20,7 @@ enum class RefereeState {
   TheirDirect,
   TheirIndirect,
   TheirPrePenalty,
-  TheirPenalty,
+  TheirPenalty
 };
 
 }
