@@ -3,6 +3,7 @@
 
 #include <cinttypes>
 
+#include "refereestate.h"
 #include "world.h"
 #include "ball.h"
 #include "robot.h"
