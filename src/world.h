@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WORLD_H
+#define WORLD_H
 
 namespace ime {
 
@@ -16,3 +17,5 @@ struct World {
 };
 
 }
+
+#endif

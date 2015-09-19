@@ -1,6 +1,7 @@
-#pragma once
+#ifndef SKILL_H
+#define SKILL_H
 
-#include <utils/vector2.h>
+#include "utils/vector2.h"
 
 namespace ime {
 
@@ -31,3 +32,5 @@ struct Skill {
 };
 
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEAMINFO_H
+#define TEAMINFO_H
 
 #include <string>
 #include <vector>
@@ -17,3 +18,5 @@ struct TeamInfo {
 };
 
 }
+
+#endif

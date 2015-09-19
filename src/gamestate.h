@@ -1,8 +1,9 @@
-#pragma once
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
 
-#include <world.h>
-#include <ball.h>
-#include <robot.h>
+#include "world.h"
+#include "ball.h"
+#include "robot.h"
 
 namespace ime {
 
@@ -19,3 +20,5 @@ struct GameState {
 };
 
 }
+
+#endif

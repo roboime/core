@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_VECTOR3_H
+#define UTILS_VECTOR3_H
 
 #include <cassert>
 
@@ -24,5 +25,7 @@ struct Vector2 {
 };
 
 }
+
+#endif
 
 // vim: set ts=2 sw=2 tw=80

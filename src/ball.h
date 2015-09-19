@@ -1,6 +1,7 @@
-#pragma once
+#ifndef BALL_H
+#define BALL_H
 
-#include <utils/vector2.h>
+#include "utils/vector2.h"
 
 namespace ime {
 
@@ -11,3 +12,5 @@ struct Ball {
 };
 
 }
+
+#endif

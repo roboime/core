@@ -1,7 +1,8 @@
-#pragma once
+#ifndef ROBOT_H
+#define ROBOT_H
 
-#include <utils/vector2.h>
-#include <team.h>
+#include "utils/vector2.h"
+#include "team.h"
 
 namespace ime {
 
@@ -18,3 +19,5 @@ struct Robot {
 };
 
 }
+
+#endif

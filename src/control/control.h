@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONTROL_CONTROL_H
+#define CONTROL_CONTROL_H
 
 namespace ime {
 
@@ -15,3 +16,5 @@ private:
 };
 
 }
+
+#endif

@@ -1,10 +1,11 @@
-#pragma once
+#ifndef CORE_H
+#define CORE_H
 
 #include <mutex>
 
-#include <interface/subprocess.h>
-#include <gamestate.h>
-#include <skill.h>
+#include "interface/subprocess.h"
+#include "gamestate.h"
+#include "skill.h"
 
 namespace ime {
 
@@ -22,3 +23,5 @@ private:
 };
 
 }
+
+#endif
