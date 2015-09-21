@@ -12,8 +12,8 @@ class Intel{
 public:
   Intel();
   ~Intel();
-  void start(Core* core, const char* name);
-  void run();
+  bool start(Core* core, const char* name);
+  bool run();
 private:
   void send();
   void receive();

@@ -1,5 +1,9 @@
+#include <cstdio>
+
 #include <unistd.h>
-#include <string.h>
+#include <fcntl.h>
+#include <csignal>
+#include <cstring>
 
 #include "interface/subprocess.h"
 
@@ -12,7 +16,9 @@ SubProcess::
 SubProcess() {}
 
 SubProcess::
-~SubProcess() {}
+~SubProcess() {
+  ::kill(pid_, SIGKILL);
+}
 
 bool SubProcess::
 start(const char* name) {
@@ -34,11 +40,19 @@ start(const char* name) {
     return false;
   }
 
+  // Create pipe to verify exec success
+  int execsuccess[2];
+  if (::pipe(execsuccess) == -1) {
+    // TODO(naum): Log error
+    return false;
+  }
+
   // Create the child process
   pid_ = ::fork();
 
   if (pid_ == 0) // Child process
   {
+
     // Redirect input to stdin
     if (::dup2(fdin_[READ], STDIN_FILENO) == -1) {
       // TODO(naum): Log error
@@ -65,12 +79,22 @@ start(const char* name) {
     ::close(fderr_[READ]);
     ::close(fderr_[WRITE]);
 
+    ::close(execsuccess[READ]);
+    ::fcntl(execsuccess[WRITE], FD_CLOEXEC);
+
     ::execl(name, "", (char*)NULL);
   } else if (pid_ > 0) { // Parent process
     // Close unused ends
     ::close(fdin_ [READ]);
     ::close(fdout_[WRITE]);
     ::close(fderr_[WRITE]);
+    ::close(execsuccess[WRITE]);
+
+    // Verify if exec succeed
+    char buf[1];
+    if (::read(execsuccess[READ], buf, 1) == 0) {
+      return true;
+    }
   } else { // Error
     // Close all ends
     ::close(fdin_ [READ]);
@@ -83,7 +107,7 @@ start(const char* name) {
     // TODO(naum): Log error
   }
 
-  return true;
+  return false;
 }
 
 int SubProcess::

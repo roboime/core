@@ -11,9 +11,12 @@ include_directories(SYSTEM ../src)
 
 set(TEST_SRCS
     main.cpp
+    #core.cpp
+    intel.cpp
 )
 
 set(TEST_LIBS
+    core
     #interface
 )
 

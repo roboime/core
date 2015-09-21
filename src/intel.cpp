@@ -14,18 +14,19 @@ Intel::
 ~Intel()
 {}
 
-void Intel::
+bool Intel::
 start(Core* core, const char* name) {
   core_ = core;
   hasStarted_ = subProcess_.start(name);
+  return hasStarted_;
 }
 
-void Intel::
+bool Intel::
 run() {
   if (!hasStarted_) {
     // TODO(naum): Log running without started intel
     ::printf("Trying to run intel while it hasn't started!\n");
-    return;
+    return false;
   }
 
   while (1) {
@@ -34,6 +35,8 @@ run() {
     send();
     receive();
   }
+
+  return true;
 }
 
 void Intel::

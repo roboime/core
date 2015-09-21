@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include <interface/subprocess.h>
+#include "interface/subprocess.h"
 
 int main(int argc, char* argv[]) {
   if (argc < 2) {
