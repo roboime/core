@@ -80,9 +80,10 @@ start(const char* name) {
     ::close(fderr_[WRITE]);
 
     ::close(execsuccess[READ]);
-    ::fcntl(execsuccess[WRITE], FD_CLOEXEC);
+    ::fcntl(execsuccess[WRITE], F_SETFD, ::fcntl(execsuccess[WRITE], F_GETFD) | FD_CLOEXEC);
 
     ::execl(name, "", (char*)NULL);
+    ::write(execsuccess[WRITE], "exec failed", 11);
   } else if (pid_ > 0) { // Parent process
     // Close unused ends
     ::close(fdin_ [READ]);

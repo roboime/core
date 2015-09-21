@@ -23,6 +23,8 @@ set(TEST_LIBS
 add_executable(test-roboime-core ${TEST_SRCS})
 target_link_libraries(test-roboime-core ${GTEST_BOTH_LIBRARIES} ${TEST_LIBS})
 
+add_executable(subprocess-repeater subprocess-repeater.cpp)
+
 #target_link_libraries(test-roboime-core ${GTEST_BOTH_LIBRARIES} roboime-core)
 #gtest_add_tests(${PROJECT_SOURCE_DIR}/bin/test-roboime-core ""
 #    main.cpp

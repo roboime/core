@@ -14,9 +14,9 @@ TEST_F(IntelTest, NoOpenSubprocess) {
 TEST_F(IntelTest, FileOpening) {
   ASSERT_FALSE(intel.start(nullptr, ""));
 
-  // FIXME(naum): "test_roboime_core" should be added by CMake,
-  // FIXME(naum): to ensure the name is the same used by CMake
-  ASSERT_TRUE(intel.start(nullptr, "test_roboime_core"));
+  // TODO(naum): Change magic string "subprocess-repeater" using CMake, to
+  // TODO(naum): ensure the string is correct
+  ASSERT_TRUE(intel.start(nullptr, "subprocess-repeater"));
 }
 
 // TODO(naum): Mock subprocess
