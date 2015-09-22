@@ -18,4 +18,5 @@ script:
   - cd build
   - cmake .. -G "Unix Makefiles" -DCMAKE_RULE_MESSAGES=OFF
   - make -j8
-  - ./bin/test-roboime-core
+  - cd bin
+  - ./test-roboime-core
