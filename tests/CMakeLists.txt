@@ -4,8 +4,10 @@ include(../cmake/Utils.cmake)
 
 find_package(Protobuf REQUIRED)
 require_gtest()
+require_gmock()
 
 include_directories(SYSTEM ${GTEST_INCLUDE_DIRS})
+include_directories(SYSTEM ${GMOCK_INCLUDE_DIRS})
 include_directories(SYSTEM ${PROTOBUF_INCLUDE_DIRS})
 include_directories(SYSTEM ../src)
 
@@ -21,7 +23,7 @@ set(TEST_LIBS
 )
 
 add_executable(test-roboime-core ${TEST_SRCS})
-target_link_libraries(test-roboime-core ${GTEST_BOTH_LIBRARIES} ${TEST_LIBS})
+target_link_libraries(test-roboime-core ${GTEST_BOTH_LIBRARIES} ${GMOCK_LIBRARIES} ${TEST_LIBS})
 
 add_executable(subprocess-repeater subprocess-repeater.cpp)
 

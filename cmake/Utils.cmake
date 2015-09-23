@@ -88,6 +88,7 @@ macro(require_gtest)
   externalproject_add(googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG release-1.7.0
+    SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/gtest
     # Disable install step
     INSTALL_COMMAND ""
   )
@@ -98,8 +99,6 @@ macro(require_gtest)
   set(GTEST_INCLUDE_DIRS ${source_dir}/include)
   set(GTEST_LIBRARY_PATH ${binary_dir})
 
-  # TODO: correct suffix for other platforms
-  #set(GTEST_LIBRARY ${GTEST_LIBRARY_PATH}/gtest.a)
   set(GTEST_LIBRARY gtest)
   add_library(${GTEST_LIBRARY} UNKNOWN IMPORTED)
   set_property(
@@ -109,7 +108,6 @@ macro(require_gtest)
   )
   add_dependencies(${GTEST_LIBRARY} googletest)
 
-  #set(GTEST_MAIN_LIBRARY ${GTEST_LIBRARY_PATH}/gtest-main.a)
   set(GTEST_MAIN_LIBRARY gtest-main)
   add_library(${GTEST_MAIN_LIBRARY} UNKNOWN IMPORTED)
   set_property(
@@ -123,6 +121,37 @@ macro(require_gtest)
   set(GTEST_LIBRARIES ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
   set(GTEST_MAIN_LIBRARIES ${GTEST_MAIN_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
   set(GTEST_BOTH_LIBRARIES ${GTEST_LIBRARY} ${GTEST_MAIN_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+endmacro()
+
+macro(require_gmock)
+  include(ExternalProject)
+
+  externalproject_add(googlemock
+    GIT_REPOSITORY https://github.com/google/googlemock.git
+    GIT_TAG release-1.7.0
+    SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/gmock
+    # Disable install step
+    INSTALL_COMMAND ""
+  )
+
+  externalproject_get_property(googlemock source_dir)
+  externalproject_get_property(googlemock binary_dir)
+
+  set(GMOCK_INCLUDE_DIRS ${source_dir}/include)
+  set(GMOCK_LIBRARY_PATH ${binary_dir})
+
+  set(GMOCK_LIBRARY gmock)
+  add_library(${GMOCK_LIBRARY} UNKNOWN IMPORTED)
+  set_property(
+    TARGET ${GMOCK_LIBRARY}
+    PROPERTY IMPORTED_LOCATION
+    ${GMOCK_LIBRARY_PATH}/${CMAKE_STATIC_LIBRARY_PREFIX}gmock${CMAKE_STATIC_LIBRARY_SUFFIX}
+  )
+  add_dependencies(${GMOCK_LIBRARY} googlemock)
+  #add_dependencies(googletest googlemock)
+  add_dependencies(googlemock googletest)
+
+  set(GMOCK_LIBRARIES ${GMOCK_LIBRARY})
 endmacro()
 
 # vim: et sw=2 ts=2 sts=2
