@@ -25,9 +25,13 @@ file (GLOB COMMOM_PROTO "proto/*.proto")
 
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${COMMOM_PROTO})
 
-add_executable(net utils/net.cpp ${PROTO_SRCS} ${PROTO_HDRS})
-target_link_libraries(net ${PROTOBUF_LIBRARIES})
-set_target_properties(net PROPERTIES COMPILE_FLAGS "-DRCVR")
+add_executable(sender utils/udp.cpp ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(sender ${PROTOBUF_LIBRARIES})
+set_target_properties(sender PROPERTIES COMPILE_FLAGS "-DSNDR")
+
+add_executable(receiver utils/udp.cpp ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(receiver ${PROTOBUF_LIBRARIES})
+set_target_properties(receiver PROPERTIES COMPILE_FLAGS "-DRCVR")
 
 add_executable(core core.cpp)
 

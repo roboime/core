@@ -32,6 +32,8 @@
 #include "../build/messages_robocup_ssl_geometry.pb.h"
 #include "../build/messages_robocup_ssl_detection.pb.h"
 #include "../build/messages_robocup_ssl_refbox_log.pb.h"
+#include "../build/grSim_Packet.pb.h"
+#include "../build/grSim_Commands.pb.h"
 
 using namespace std;
 
@@ -40,7 +42,7 @@ static const unsigned char TTL = 3;
 
 struct Socket {
   int sockfd;
-  struct sockaddr_in saddr;
+  struct sockaddr_in saddr_;
   struct ip_mreq mreq;
 };
 
@@ -48,12 +50,13 @@ struct Socket *new_socket_iface(int port, const char *addr, const char *iface) {
   struct Socket *i = (struct Socket *)calloc(1, sizeof(struct Socket *));
 
   // open a UDP socket
-  if ((i->sockfd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP)) < 0)
+  if ((i->sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP)) < 0)
     perror("Could not open socket file descriptor");
 
-  i->saddr.sin_family = PF_INET;
-  i->saddr.sin_port = htons(port);
+  i->saddr_.sin_family = PF_INET;
+  i->saddr_.sin_port = htons(port);
 
+  /*
 #define OR_ANY(ADDR) (strlen(ADDR) ? inet_addr(ADDR) : htonl(INADDR_ANY));
   // bind socket to the multicast address if present
   i->saddr.sin_addr.s_addr = OR_ANY(addr);
@@ -61,6 +64,7 @@ struct Socket *new_socket_iface(int port, const char *addr, const char *iface) {
   i->mreq.imr_multiaddr.s_addr = inet_addr(addr);
   i->mreq.imr_interface.s_addr = OR_ANY(iface);
 #undef OR_ANY
+*/
 
   return i;
 }
@@ -87,7 +91,7 @@ bool socket_receiver_bind(struct Socket *socket) {
   }
 
   // bind to interface
-  if (bind(socket->sockfd, (struct sockaddr *)&socket->saddr, sizeof(socket->saddr)) < 0) {
+  if (bind(socket->sockfd, (struct sockaddr *)&socket->saddr_, sizeof(socket->saddr_)) < 0) {
     perror("Could not bind socket to interface");
     return false;
   }
@@ -104,7 +108,7 @@ bool socket_receiver_bind(struct Socket *socket) {
 
 bool socket_sender_bind(struct Socket *socket) {
   struct sockaddr_in saddr;
-  saddr.sin_family = PF_INET;
+  saddr.sin_family = AF_INET;
   saddr.sin_port = htons(0);                 // Use the first free port
   saddr.sin_addr.s_addr = htonl(INADDR_ANY); // bind socket to any address
 
@@ -114,6 +118,7 @@ bool socket_sender_bind(struct Socket *socket) {
     return false;
   }
 
+  /*
   struct in_addr iaddr;
   memset(&iaddr, 0, sizeof(struct in_addr));
   iaddr.s_addr = INADDR_ANY; // use DEFAULT interface
@@ -139,6 +144,7 @@ bool socket_sender_bind(struct Socket *socket) {
     return false;
   }
 
+  */
   return true;
 }
 
@@ -148,7 +154,7 @@ int socket_receive(struct Socket *socket, char *into_buffer, int buffer_size) {
   // receive packet from socket
   int len;
   if ((len = recvfrom(socket->sockfd, into_buffer, buffer_size - 1, 0,
-                      (struct sockaddr *)&socket->saddr, &socklen)) < 0)
+                      (struct sockaddr *)&socket->saddr_, &socklen)) < 0)
     perror("Could not receive from socket");
 
   into_buffer[len] = 0;
@@ -158,7 +164,7 @@ int socket_receive(struct Socket *socket, char *into_buffer, int buffer_size) {
 int socket_send(struct Socket *socket, const char *from_buffer, int send_size) {
   socklen_t socklen = sizeof(struct sockaddr_in);
   int len = sendto(socket->sockfd, from_buffer, send_size, 0,
-                   (struct sockaddr *)&socket->saddr, socklen);
+                   (struct sockaddr *)&socket->saddr_, socklen);
   return len;
 }
 
@@ -189,12 +195,39 @@ int main() {
 
 #ifdef SNDR
 int main() {
-  struct Socket *socket = new_socket(20011, "224.5.23.2");
-  socket_sender_bind(socket);
+  struct Socket *socket = new_socket(20011, "192.168.1.118");
+  //socket_sender_bind(socket);
 
-  const char *text = "Hurray!!!";
-  socket_send(socket, text, strlen(text));
+  grSim_Packet* packet = new grSim_Packet();
+  grSim_Commands* commands = packet->mutable_commands();
 
+  commands->set_isteamyellow(true);
+  commands->set_timestamp(0.0);
+
+  grSim_Robot_Command* command = commands->add_robot_commands();
+
+  command->set_id(1);
+  command->set_kickspeedx(1);
+  command->set_spinner(false);
+  command->set_kickspeedz(0.0);
+  command->set_veltangent(0.0);
+  command->set_velnormal(2.0);
+  command->set_velangular(0.0);
+  command->set_wheelsspeed(true);
+  command->set_wheel1(1.0);
+  command->set_wheel2(1.0);
+  command->set_wheel3(1.0);
+  command->set_wheel4(1.0);
+
+  char *text = new char[packet->ByteSize()];
+  packet->SerializeToArray(text, packet->ByteSize());
+
+  while (1){
+    socket_send(socket, text, strlen(text));
+  }
+
+  delete[] text;
+  delete packet;
   delete_socket(socket);
 }
 #endif
