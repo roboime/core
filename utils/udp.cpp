@@ -111,27 +111,26 @@ int main(){
   sender.socketAddress_.sin_addr.s_addr = inet_addr("127.0.0.1");
   sender.socketAddress_.sin_port = htons(20011);
 
-
   grSim_Packet* sendingPacket = new grSim_Packet();
   grSim_Commands* commands = sendingPacket->mutable_commands();
 
   commands->set_isteamyellow(true);
-  commands->set_timestamp(0.0);
+  commands->set_timestamp(0.1);
 
   grSim_Robot_Command* command = commands->add_robot_commands();
 
   command->set_id(1);
   command->set_kickspeedx(1);
   command->set_spinner(false);
-  command->set_kickspeedz(0.0);
-  command->set_veltangent(0.0);
+  command->set_kickspeedz(1.0);
+  command->set_veltangent(1.0);
   command->set_velnormal(2.0);
-  command->set_velangular(0.0);
+  command->set_velangular(1.0);
   command->set_wheelsspeed(true);
-  command->set_wheel1(1.0);
-  command->set_wheel2(1.0);
-  command->set_wheel3(1.0);
-  command->set_wheel4(1.0);
+  command->set_wheel1(-10.0);
+  command->set_wheel2(10.0);
+  command->set_wheel3(-10.0);
+  command->set_wheel4(10.0);
 
   char* text = new char[sendingPacket->ByteSize()+1];
   sendingPacket->SerializeToArray(text, sendingPacket->ByteSize());

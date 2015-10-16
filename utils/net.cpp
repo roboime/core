@@ -56,15 +56,13 @@ struct Socket *new_socket_iface(int port, const char *addr, const char *iface) {
   i->saddr_.sin_family = PF_INET;
   i->saddr_.sin_port = htons(port);
 
-  /*
 #define OR_ANY(ADDR) (strlen(ADDR) ? inet_addr(ADDR) : htonl(INADDR_ANY));
   // bind socket to the multicast address if present
-  i->saddr.sin_addr.s_addr = OR_ANY(addr);
+  i->saddr_.sin_addr.s_addr = OR_ANY(addr);
 
   i->mreq.imr_multiaddr.s_addr = inet_addr(addr);
   i->mreq.imr_interface.s_addr = OR_ANY(iface);
 #undef OR_ANY
-*/
 
   return i;
 }
@@ -118,7 +116,6 @@ bool socket_sender_bind(struct Socket *socket) {
     return false;
   }
 
-  /*
   struct in_addr iaddr;
   memset(&iaddr, 0, sizeof(struct in_addr));
   iaddr.s_addr = INADDR_ANY; // use DEFAULT interface
@@ -144,7 +141,6 @@ bool socket_sender_bind(struct Socket *socket) {
     return false;
   }
 
-  */
   return true;
 }
 
@@ -195,8 +191,8 @@ int main() {
 
 #ifdef SNDR
 int main() {
-  struct Socket *socket = new_socket(20011, "192.168.1.118");
-  //socket_sender_bind(socket);
+  struct Socket *socket = new_socket(20011, "127.0.0.1");
+  socket_sender_bind(socket);
 
   grSim_Packet* packet = new grSim_Packet();
   grSim_Commands* commands = packet->mutable_commands();
