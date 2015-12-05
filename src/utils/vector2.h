@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cassert>
+// #include <cassert>
 
 namespace ime {
 
@@ -16,10 +16,10 @@ struct Vector2 {
     : x {nx}, y {ny}
   {}
 
-  float& operator[](unsigned i) {
-    assert(i < 2);
-    return (i == 0) ? x : y;
-  }
+  // float& operator[](unsigned i) {
+  //   assert(i < 2);
+  //   return (i == 0) ? x : y;
+  // }
 };
 
 }
